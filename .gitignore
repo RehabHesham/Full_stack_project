@@ -1,16 +1,16 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+/ForntEnd_react/node_modules
 /BackEnd_nodejs/node_modules
-/.pnp
+/ForntEnd_react/.pnp
 .pnp.js
 
 # testing
-/coverage
+/ForntEnd_react/coverage
 
 # production
-/build
+/ForntEnd_react/build
 
 # misc
 .DS_Store
