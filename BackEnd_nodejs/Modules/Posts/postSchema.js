@@ -1,8 +1,9 @@
+const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema({
     userId: {
-        type: Number,
+        type: ObjectId,
         required: [true, "Post's userId is required"]
     },
     title: {

@@ -1,8 +1,10 @@
 const express = require('express');
 const morgan = require('morgan');
-const postsRouter = require('./Modules/Posts');
+const useCon = require('./Modules/Users/UserController');
 const usersRouter = require('./Modules/Users');
+const postsRouter = require('./Modules/Posts');
 const commentsRouter = require('./Modules/Comments');
+const cors = require('cors');
 
 const app = express();
 const port = 4000;
@@ -15,6 +17,7 @@ console.log("server started");
 app.use(morgan('common'));
 app.use(express.json());
 app.use(express.urlencoded());
+app.use(cors({ origin: 'http://localhost:3000' }));
 
 app.use('/posts', postsRouter);
 app.use('/users', usersRouter);
