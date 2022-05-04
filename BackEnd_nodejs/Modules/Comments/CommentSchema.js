@@ -21,6 +21,10 @@ const schema = new mongoose.Schema({
             validator: (v) => Promise.resolve(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i.test(v)),
             message: props => `${props.value} is not a valid email!`
         }
+    },
+    userId: {
+        type: ObjectId,
+        required: [true, "Comment's userId is required"]
     }
 }, { versionKey: false })
 

@@ -19,11 +19,20 @@ module.exports = {
             next(customError(500, "SERVER_ERROR", "can't get data", []));
         }
     },
+    getCommentByPostID: async (req, res, next) => {
+        try {
+            const { id } = req.params
+            const comment = await comments.find({ postId: id });
+            res.send(comment);
+        } catch (error) {
+            next(customError(500, "SERVER_ERROR", "can't get data", []));
+        }
+    },
 
     addComment: async (req, res, next) => {
         try {
-            const { postId, name, body, email } = req.body;
-            const newComment = new comments({ postId, name, body, email });
+            const { postId, name, body, email, userId } = req.body;
+            const newComment = new comments({ postId, name, body, email, userId });
             try { await newComment.validate(); }
             catch (err) {
                 next(customError(422, 'INVALID_DATA', 'Check input data', err))

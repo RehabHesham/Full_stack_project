@@ -14,20 +14,26 @@ require('./Database/EstablishDBConnection');
 
 console.log("server started");
 
+app.use(cors());
 app.use(morgan('common'));
 app.use(express.json());
 app.use(express.urlencoded());
-app.use(cors({ origin: 'http://localhost:3000' }));
 
 app.use('/posts', postsRouter);
 app.use('/users', usersRouter);
 app.use('/comments', commentsRouter);
 
 app.use((err, req, res, next) => {
-    res.status(err.status || 500).send({
-        code: err.code || 'SERVER_ERROR',
-        message: err.message || 'Somthing is wrong',
-        details: err.details || []
-    });
+    err === 403 ?
+        res.status(403).send({
+            code: 'UNAUHTORIZED',
+            message: 'you don\'t have permission to perform this action',
+            details: []
+        })
+        : res.status(err.status || 500).send({
+            code: err.code || 'SERVER_ERROR',
+            message: err.message || 'Somthing is wrong',
+            details: err.details || []
+        });
 })
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

@@ -1,5 +1,6 @@
 const customError = require('../../Helpers/CustomError');
 const posts = require('./postModule');
+const comments = require('../Comments/CommentModule');
 
 module.exports = {
     getPosts: async (req, res, next) => {
@@ -62,6 +63,7 @@ module.exports = {
             const { id } = req.params;
             const result = await posts.deleteOne({ _id: id });
             if (result.deletedCount == 0) next(customError(422, "INVALID_DATA", "invalid id value", []));
+            await comments.deleteMany({ postId: id });
             res.send({ status: "deleted sucessfully" });
         } catch (error) {
             next(customError(500, "SERVER_ERROR", "can't delete data", []));

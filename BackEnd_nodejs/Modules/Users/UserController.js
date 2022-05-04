@@ -102,7 +102,7 @@ module.exports = {
             if (!isCorrectPassword)
                 next(customError(401, 'UNAUTHENTICATED', 'wrong username, email or password'));
             const accessToken = await token.signToken({ id: user.id });
-            res.send({ accessToken, id: user.id, username: user.name });
+            res.send({ accessToken, id: user.id, username: user.name, email: user.email });
         } catch (error) {
             next(customError(500, "SERVER_ERROR", "can't login", []));
         }
